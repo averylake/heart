@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="canonical" href="https://heart.averylakeofficial.com">
+
+  <title>05 // THE HEART | The Digital Audit</title>
+  <meta name="description" content="Protocol 05: The Heart. A heart is a signal. Or is it noise?">
+  <meta name="author" content="Avery Lake">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://heart.averylakeofficial.com">
+  <meta property="og:title" content="05 // THE HEART">
+  <meta property="og:description" content="Protocol 05. A heart is a signal. Or is it noise?">
+  <meta property="og:image" content="https://heart.averylakeofficial.com/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://heart.averylakeofficial.com/preview.jpg">
+  <meta property="og:url" content="https://heart.averylakeofficial.com/">
+
+  <!-- Favicon -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23FF4466'/></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    /* ============================================== */
+    /* === UNIFIED DESIGN SYSTEM v2.0 === */
+    /* ============================================== */
+    :root {
+      --bg-void: #0a0a0a;
+      --text-main: #ffffff;
+      --text-dim: rgba(255, 255, 255, 0.4);
+      --text-muted: rgba(255, 255, 255, 0.6);
+
+      /* Protocol 05: Heart Red */
+      --accent-primary: #FF4466;
+      --accent-glow: rgba(255, 68, 102, 0.4);
+      --accent-secondary: rgba(255, 68, 102, 0.6);
+
+      --glass-bg: rgba(10, 10, 10, 0.4);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --border-dim: rgba(255, 255, 255, 0.2);
+
+      --font-main: 'Space Grotesk', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-void);
+      font-family: var(--font-main);
+      color: var(--text-main);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === GATEKEEPER === */
+    #gatekeeper-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 99999;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+    }
+
+    #gatekeeper-overlay h1 {
+      color: var(--accent-primary);
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    #gatekeeper-overlay p {
+      color: var(--text-dim);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    /* === START OVERLAY === */
+    #start-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-void);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: opacity 0.5s ease;
+    }
+
+    .start-title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .start-by {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .start-artist {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      margin-bottom: 50px;
+    }
+
+    .btn-initialize {
+      background: transparent;
+      border: 1px solid var(--accent-primary);
+      color: var(--accent-primary);
+      font-family: var(--font-main);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 18px 50px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+    }
+
+    .btn-initialize:hover {
+      background: rgba(255, 68, 102, 0.1);
+      box-shadow: 0 0 30px rgba(255, 68, 102, 0.3);
+    }
+
+    .sound-note {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    /* === MAIN LAYOUT === */
+    .main-container {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .main-container.active {
+      opacity: 1;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .protocol-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .protocol-subtitle {
+      font-size: 9px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    .audio-toggle {
+      font-family: var(--font-main);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: 1px solid var(--border-dim);
+      background: transparent;
+      color: var(--text-dim);
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .audio-toggle:hover {
+      border-color: var(--text-muted);
+      color: var(--text-muted);
+    }
+
+    .audio-toggle.active {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    /* CENTER CONTENT */
+    .center-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .experience-prompt {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      text-align: center;
+      line-height: 1.6;
+      min-height: 40px;
+    }
+
+    .experience-prompt::after {
+      content: '|';
+      animation: blink 0.7s infinite;
+      color: var(--accent-primary);
+    }
+
+    .experience-prompt.done::after {
+      display: none;
+    }
+
+    @keyframes blink {
+
+      0%,
+      50% {
+        opacity: 1;
+      }
+
+      51%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /* === LIKE BUTTON === */
+    .like-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .like-button {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-primary);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .like-button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .like-button:hover::before {
+      opacity: 0.5;
+    }
+
+    .like-button:active {
+      transform: scale(0.95);
+      box-shadow: 0 0 40px var(--accent-glow);
+    }
+
+    .like-button.pulse {
+      animation: likePulse 0.3s ease;
+    }
+
+    @keyframes likePulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(255, 68, 102, 0);
+      }
+
+      50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 40px var(--accent-glow);
+      }
+
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(255, 68, 102, 0);
+      }
+    }
+
+    .like-icon {
+      font-size: 48px;
+      color: var(--accent-primary);
+      z-index: 1;
+      transition: transform 0.15s;
+    }
+
+    .like-button:active .like-icon {
+      transform: scale(1.2);
+    }
+
+    /* RECEIVED NOTIFICATION */
+    .received-notification {
+      position: absolute;
+      top: -60px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--accent-primary);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+    }
+
+    .received-notification.show {
+      animation: receivedPop 1.5s ease forwards;
+    }
+
+    @keyframes receivedPop {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      20% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      80% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    /* COUNTERS */
+    .counters {
+      display: flex;
+      gap: 60px;
+      margin-top: 50px;
+    }
+
+    .counter-box {
+      text-align: center;
+    }
+
+    .counter-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .counter-value {
+      font-family: var(--font-mono);
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--accent-primary);
+    }
+
+    .counter-value.received {
+      color: var(--text-main);
+    }
+
+    /* COUNTDOWN TIMER */
+    .countdown-container {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .countdown-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .countdown-value {
+      font-family: var(--font-mono);
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--accent-primary);
+      letter-spacing: 4px;
+    }
+
+    .countdown-value.urgent {
+      animation: urgentPulse 0.5s infinite;
+    }
+
+    @keyframes urgentPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    /* BOTTOM BAR */
+    .bottom-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      width: 100%;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .reset-link {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .reset-link:hover {
+      color: var(--text-main);
+    }
+
+    .footer-credit {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+
+    .footer-credit:hover {
+      color: var(--text-main);
+    }
+
+    .music-credit {
+      font-size: 8px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-capture {
+      font-family: var(--font-main);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: 1px solid var(--accent-primary);
+      background: transparent;
+      color: var(--accent-primary);
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-capture:hover {
+      background: rgba(255, 68, 102, 0.1);
+      box-shadow: 0 0 15px rgba(255, 68, 102, 0.15);
+    }
+
+    /* === DATA CAPTURE OVERLAY === */
+    #capture-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 5000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #capture-overlay.active {
+      display: flex;
+    }
+
+    .capture-modal {
+      width: 320px;
+      text-align: center;
+    }
+
+    .capture-header {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    .capture-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border-dim);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      font-size: 14px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 12px;
+      margin-bottom: 30px;
+      outline: none;
+    }
+
+    .capture-input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .capture-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    /* UNIFIED BUTTONS */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--accent-primary);
+      color: var(--accent-primary);
+      font-family: var(--font-main);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      text-align: left;
+    }
+
+    .btn-primary:hover {
+      background: rgba(255, 68, 102, 0.1);
+      box-shadow: 0 0 20px rgba(255, 68, 102, 0.2);
+    }
+
+    .btn-secondary {
+      display: block;
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border-dim);
+      color: var(--text-muted);
+      font-family: var(--font-main);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      text-align: left;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-main);
+      color: var(--text-main);
+    }
+
+    .btn-locked {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .btn-locked.unlocked {
+      opacity: 1;
+      cursor: pointer;
+      pointer-events: auto;
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    /* === ARTIFACT GENERATOR === */
+    #art-container {
+      position: fixed;
+      transform: translate(-9999px, -9999px);
+      width: 2250px;
+      height: 3000px;
+      /* Red textured background matching song cover - ENHANCED */
+      background-color: #080808;
+      background-image:
+        /* Vignette (top layer) */
+        radial-gradient(circle, transparent 25%, #000 95%),
+        /* Red stripe 1 - NARROW BUT VISIBLE */
+        linear-gradient(90deg, transparent 0%, transparent 39%, rgba(255, 68, 102, 0.5) 40%, rgba(255, 68, 102, 0.5) 42%, transparent 43%),
+        /* Red stripe 2 - NARROW BUT VISIBLE */
+        linear-gradient(90deg, transparent 0%, transparent 59%, rgba(255, 68, 102, 0.5) 60%, rgba(255, 68, 102, 0.5) 62%, transparent 63%),
+        /* White static */
+        linear-gradient(90deg, transparent 0%, transparent 10%, rgba(255, 255, 255, 0.08) 10%, rgba(255, 255, 255, 0.08) 30%, transparent 30%),
+        /* Scanlines - HIGHLY VISIBLE */
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0px, transparent 1px, transparent 2px);
+      background-size:
+        100% 100%,
+        100% 100%,
+        100% 100%,
+        100% 70px,
+        100% 2px;
+      background-position:
+        0 0,
+        0 0,
+        0 0,
+        0 20px,
+        0 0;
+      padding: 150px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .art-monolith {
+      width: 1400px;
+      aspect-ratio: 9 / 16;
+      background: #000;
+      border: 6px solid var(--accent-primary);
+      margin: 0 auto 100px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: visible;
+    }
+
+    /* Corner brackets - Red + White alternating */
+    .art-monolith::before,
+    .art-monolith::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-style: solid;
+      border-width: 0;
+      pointer-events: none;
+    }
+
+    /* Top-left - RED */
+    .art-monolith::before {
+      top: -45px;
+      left: -45px;
+      border-left: 4px solid rgba(255, 68, 102, 0.8);
+      border-top: 4px solid rgba(255, 68, 102, 0.8);
+    }
+
+    /* Top-right - WHITE */
+    .art-monolith::after {
+      top: -45px;
+      right: -45px;
+      border-right: 4px solid rgba(255, 255, 255, 0.9);
+      border-top: 4px solid rgba(255, 255, 255, 0.9);
+    }
+
+    /* Bottom-left - WHITE */
+    .corner-bottom-left {
+      position: absolute;
+      bottom: -45px;
+      left: -45px;
+      width: 60px;
+      height: 60px;
+      border-left: 4px solid rgba(255, 255, 255, 0.9);
+      border-bottom: 4px solid rgba(255, 255, 255, 0.9);
+      pointer-events: none;
+    }
+
+    /* Bottom-right - RED */
+    .corner-bottom-right {
+      position: absolute;
+      bottom: -45px;
+      right: -45px;
+      width: 60px;
+      height: 60px;
+      border-right: 4px solid rgba(255, 68, 102, 0.8);
+      border-bottom: 4px solid rgba(255, 68, 102, 0.8);
+      pointer-events: none;
+    }
+
+    .art-grid {
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .art-icon {
+      font-size: 80px;
+      opacity: 0.8;
+    }
+
+    .art-icon.given {
+      color: var(--accent-primary);
+    }
+
+    .art-icon.received {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .art-footer {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: auto;
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .main-container {
+        padding: 15px;
+      }
+
+      .like-button {
+        width: 120px;
+        height: 120px;
+      }
+
+      .like-icon {
+        font-size: 40px;
+      }
+
+      .counters {
+        gap: 40px;
+      }
+
+      .counter-value {
+        font-size: 28px;
+      }
+
+      .bottom-bar {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .footer-left {
+        align-items: center;
+        text-align: center;
+      }
+
+      .btn-capture {
+        width: 100%;
+        max-width: 260px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- GATEKEEPER -->
+  <div id="gatekeeper-overlay">
+    <h1>Restricted Terminal</h1>
+    <p>In-app browsers prevent full functionality.<br>Please open in Safari or Chrome.</p>
+  </div>
+
+  <!-- START OVERLAY -->
+  <div id="start-overlay">
+    <div class="start-title">THE HEART</div>
+    <div class="start-by">by</div>
+    <div class="start-artist">AVERY LAKE</div>
+    <button class="btn-initialize" onclick="initializeProtocol()">INITIALIZE</button>
+    <div class="sound-note">(Turn on sound for full effect)</div>
+  </div>
+
+  <audio id="bg-audio" loop src="Pulse of Validation.mp3"></audio>
+
+  <!-- MAIN INTERFACE -->
+  <div class="main-container" id="main-interface">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      <div>
+        <div class="protocol-title">The Heart</div>
+        <div class="protocol-subtitle">Protocol 05</div>
+      </div>
+      <button class="audio-toggle" id="audio-toggle" onclick="toggleAudio()">AUDIO: OFF</button>
+    </div>
+
+    <!-- CENTER -->
+    <div class="center-content">
+      <div class="experience-prompt" id="typewriter-text"></div>
+
+      <div class="like-container">
+        <div class="countdown-container">
+          <div class="countdown-label">Time Remaining</div>
+          <div class="countdown-value" id="countdown">0:15</div>
+        </div>
+
+        <button class="like-button" id="like-btn" onclick="giveLike()">
+          <span class="like-icon">♡</span>
+        </button>
+      </div>
+
+      <div class="counters">
+        <div class="counter-box">
+          <div class="counter-value" id="like-count">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM BAR -->
+    <div class="bottom-bar">
+      <div class="footer-left">
+        <span class="reset-link" onclick="location.reload()">RESET PROTOCOL</span>
+        <a href="https://www.averylakeofficial.com/" class="footer-credit" target="_blank">AN ART OF AVERY LAKE
+          EXPERIMENT</a>
+        <span style="font-size: 8px; opacity: 0.5;">© 2026 Avery Lake. All rights reserved.</span>
+        <a href="https://averylakeofficial.com/the-signal" target="_blank" class="music-credit"
+          style="cursor: pointer;">Audio: Pulse of Validation by AVERY LAKE</a>
+      </div>
+      <a href="https://digital.averylakeofficial.com/" class="btn-secondary"
+        style="width:auto; padding:12px 20px;">CONTINUE THE AUDIT</a>
+    </div>
+  </div>
+
+  <!-- DATA CAPTURE OVERLAY -->
+  <div id="capture-overlay">
+    <div class="capture-modal">
+      <div class="capture-header">DATA CAPTURED</div>
+
+      <input type="text" class="capture-input" id="subject-input" placeholder="ENTER SUBJECT NAME" maxlength="25">
+
+      <button class="btn-primary" onclick="downloadArtifact()">
+        <span style="opacity:0.5; margin-right:8px;">1.</span> DOWNLOAD ARTIFACT (IMAGE)
+      </button>
+      <button class="btn-secondary" onclick="downloadDataLog()">
+        <span style="opacity:0.5; margin-right:8px;">2.</span> DOWNLOAD DATA LOG
+      </button>
+      <button class="btn-secondary btn-locked" id="print-btn" onclick="requestPrint()" style="opacity:0.3;">
+        <span style="opacity:0.5; margin-right:8px;">3.</span> COMMISSION INQUIRY (optional)
+      </button>
+
+      <div style="height:10px;"></div>
+
+      <a href="https://digital.averylakeofficial.com/" class="btn-secondary">
+        <span style="opacity:0.5; margin-right:8px;">4.</span> CONTINUE THE AUDIT
+      </a>
+
+      <div style="margin-top:15px; text-align:center;">
+        <span class="reset-link" onclick="location.reload()"
+          style="font-size:9px; border-bottom:1px solid #333; padding-bottom:2px;">RESET PROTOCOL</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTIFACT GENERATOR (Hidden) -->
+  <div id="art-container">
+    <div style="height:100px;"></div>
+    <div class="art-monolith">
+      <div class="art-grid" id="art-grid">
+        <!-- Thumbs up icons will be generated here -->
+      </div>
+      <span class="corner-bottom-left"></span>
+      <span class="corner-bottom-right"></span>
+    </div>
+    <div class="art-footer">
+      <div><span id="art-hash">0x000000</span> (1/1)</div>
+      <span>THE HEART</span>
+      <span>AVERY LAKE</span>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <script>
+    // === GATEKEEPER ===
+    (function () {
+      const ua = navigator.userAgent || '';
+      if (/Instagram|FBAN|FBAV|TikTok/i.test(ua)) {
+        document.getElementById('gatekeeper-overlay').style.display = 'flex';
+        throw new Error("Restricted Browser");
+      }
+    })();
+
+    // === STATE ===
+    let audioPlaying = false;
+    let capturedData = {};
+    let downloadedArtifact = false, downloadedLog = false;
+    let likesGiven = 0;
+    let protocolStarted = false;
+    let countdownInterval = null;
+    let timeRemaining = 15; // 15 seconds
+
+    const audio = document.getElementById('bg-audio');
+    const mainInterface = document.getElementById('main-interface');
+    const audioToggle = document.getElementById('audio-toggle');
+    const likeBtn = document.getElementById('like-btn');
+    const countdownEl = document.getElementById('countdown');
+
+    // === INITIALIZE ===
+    function initializeProtocol() {
+      document.getElementById('start-overlay').style.opacity = '0';
+      setTimeout(() => { document.getElementById('start-overlay').style.display = 'none'; }, 500);
+      mainInterface.classList.add('active');
+
+      audio.play().then(() => {
+        audioPlaying = true;
+        audioToggle.textContent = 'AUDIO: ON';
+        audioToggle.classList.add('active');
+      }).catch(() => { });
+
+      typewriterEffect();
+      capturedData.startTime = Date.now();
+
+      // Start countdown after typewriter
+      setTimeout(() => {
+        protocolStarted = true;
+        startCountdown();
+      }, 3000);
+    }
+
+    // === TYPEWRITER EFFECT ===
+    function typewriterEffect() {
+      const text1 = "A HEART IS A SIGNAL.";
+      const text2 = "OR IS IT NOISE?";
+      const element = document.getElementById('typewriter-text');
+      let i = 0;
+      let currentText = text1;
+      let line = 1;
+
+      function type() {
+        if (i < currentText.length) {
+          element.innerHTML += currentText.charAt(i);
+          i++;
+          setTimeout(type, 40);
+        } else if (line === 1) {
+          element.innerHTML += '<br>';
+          currentText = text2;
+          i = 0;
+          line = 2;
+          setTimeout(type, 300);
+        } else {
+          element.classList.add('done');
+        }
+      }
+      type();
+    }
+
+    function toggleAudio() {
+      if (audioPlaying) {
+        audio.pause();
+        audioPlaying = false;
+        audioToggle.textContent = 'AUDIO: OFF';
+        audioToggle.classList.remove('active');
+      } else {
+        audio.play();
+        audioPlaying = true;
+        audioToggle.textContent = 'AUDIO: ON';
+        audioToggle.classList.add('active');
+      }
+    }
+
+    // === LIKE MECHANICS ===
+    function giveLike() {
+      if (!protocolStarted) return;
+
+      likesGiven++;
+      document.getElementById('like-count').textContent = likesGiven;
+
+      // Pulse animation
+      likeBtn.classList.remove('pulse');
+      void likeBtn.offsetWidth; // Trigger reflow
+      likeBtn.classList.add('pulse');
+    }
+
+    // === COUNTDOWN ===
+    function startCountdown() {
+      updateCountdownDisplay();
+
+      countdownInterval = setInterval(() => {
+        timeRemaining--;
+        updateCountdownDisplay();
+
+        // Add urgent styling when under 10 seconds
+        if (timeRemaining <= 10) {
+          countdownEl.classList.add('urgent');
+        }
+
+        if (timeRemaining <= 0) {
+          clearInterval(countdownInterval);
+          captureData();
+        }
+      }, 1000);
+    }
+
+    function updateCountdownDisplay() {
+      const minutes = Math.floor(timeRemaining / 60);
+      const seconds = timeRemaining % 60;
+      countdownEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+
+    function captureData() {
+      if (!protocolStarted) return;
+
+      protocolStarted = false;
+      clearInterval(countdownInterval);
+
+      capturedData.endTime = Date.now();
+      capturedData.likesGiven = likesGiven;
+      capturedData.hash = generateHash();
+
+      document.getElementById('capture-overlay').classList.add('active');
+      document.getElementById('art-hash').textContent = capturedData.hash;
+      generateArtifactGrid();
+    }
+
+    function generateHash() {
+      return '0x' + Math.random().toString(16).substr(2, 6).toUpperCase();
+    }
+
+    // === ARTIFACT GENERATION ===
+    function generateArtifactGrid() {
+      const container = document.getElementById('art-grid');
+      container.innerHTML = '';
+
+      // Generate heart icons
+      for (let i = 0; i < likesGiven; i++) {
+        const icon = document.createElement('span');
+        icon.className = 'art-icon given';
+        icon.textContent = '♡';
+        container.appendChild(icon);
+      }
+    }
+
+    function downloadArtifact() {
+      const subjectName = document.getElementById('subject-input').value.trim() || 'ANONYMOUS';
+      capturedData.subjectName = subjectName;
+
+      html2canvas(document.getElementById('art-container'), {
+        backgroundColor: '#0a0a0a',
+        scale: 1
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `THE_HEART_${capturedData.hash}_ARTIFACT.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        downloadedArtifact = true;
+        checkUnlockPrint();
+      });
+    }
+
+    function downloadDataLog() {
+      const subjectName = document.getElementById('subject-input').value.trim() || 'ANONYMOUS';
+      capturedData.subjectName = subjectName;
+
+      const log = `
+==================================
+THE HEART // PROTOCOL 05
+DATA LOG
+==================================
+
+HASH: ${capturedData.hash}
+SUBJECT: ${subjectName}
+DATE: ${new Date().toISOString()}
+
+----------------------------------
+METRICS
+----------------------------------
+HEARTS: ${likesGiven}
+SESSION DURATION: 15s
+
+----------------------------------
+PHILOSOPHICAL NOTE
+----------------------------------
+A heart is a signal. Or is it noise?
+
+You gave ${likesGiven} hearts in 15 seconds.
+
+Each one a small act of attention.
+Sometimes ridiculous.
+Sometimes beautiful.
+
+----------------------------------
+AUDIO: "Pulse of Validation" by AVERY LAKE
+© AVERY LAKE OFFICIAL // 2026
+THE DIGITAL AUDIT
+==================================
+      `.trim();
+
+      const blob = new Blob([log], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.download = `THE_HEART_${capturedData.hash}_LOG.txt`;
+      link.href = URL.createObjectURL(blob);
+      link.click();
+      downloadedLog = true;
+      checkUnlockPrint();
+    }
+
+    function checkUnlockPrint() {
+      if (downloadedArtifact && downloadedLog) {
+        const printBtn = document.getElementById('print-btn');
+        printBtn.classList.add('unlocked');
+        printBtn.style.opacity = '1';
+      }
+    }
+
+    function requestPrint() {
+      if (!downloadedArtifact || !downloadedLog) return;
+
+      const name = document.getElementById('subject-input').value || "Anonymous";
+      const d = capturedData;
+
+      const subject = `Protocol 05 Commission Request (${name})`;
+      const body = `Dear Avery Lake,
+
+I have completed Protocol 05: The Heart and would like to request a signed and certified physical copy.
+
+PROTOCOL DATA:
+- Subject: ${name}
+- Hearts: ${likesGiven}
+- Duration: 15s
+- Hash: ${d.hash}
+- Timestamp: ${new Date().toISOString()}
+
+[IMPORTANT: I have attached BOTH the ARTIFACT IMAGE and the DATA LOG to this email.]
+
+Please advise on commission details.
+
+TECHNICAL SPECIFICATIONS:
+- Size: 18″ × 24″ (recommended). Other sizes available upon request.`;
+
+      window.location.href = `mailto:hello@averylakeofficial.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+  </script>
+
+</body>
+
+</html>
